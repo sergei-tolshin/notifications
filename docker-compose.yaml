@@ -1,0 +1,48 @@
+version: '3.8'
+
+
+services:
+  db:
+    container_name: postgres
+    image: postgres:14.3-bullseye
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - ./docker/postgres/data/:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+
+  amqp:
+    container_name: rabbitmq
+    image: rabbitmq:3.10.5-management
+    restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ./docker/rabbitmq/data/:/var/lib/rabbitmq/
+      - ./docker/rabbitmq/log/:/var/log/rabbitmq
+    env_file:
+      - ./.env
+
+  worker:
+    container_name: worker
+    build: ./worker
+    command: celery --app=main.app worker -l INFO
+    volumes:
+      - ./worker:/usr/src/app
+    depends_on:
+      - db
+      - amqp
+
+  dashboard:
+    container_name: dashboard
+    build: ./worker
+    command: celery -A main.app --broker=amqp://guest:guest@rabbitmq:5672// flower
+    ports:
+      - 5556:5555
+    depends_on:
+      - db
+      - amqp
+      - worker

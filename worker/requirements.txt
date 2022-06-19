@@ -1,0 +1,4 @@
+psycopg2-binary==2.9.3
+celery==5.2.7
+flower==1.0.0
+SQLAlchemy==1.4.37
