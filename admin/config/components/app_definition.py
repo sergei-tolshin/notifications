@@ -6,6 +6,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_createsuperuserwithpassword',
+    'django_celery_beat',
     'notices.apps.NoticesConfig',
 ]
 

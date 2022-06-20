@@ -144,5 +144,5 @@ temp_etl
 state.json
 test.env
 
-docker/*/data/*
-docker/*/log/*
+volumes/*/data/*
+volumes/*/log/*
