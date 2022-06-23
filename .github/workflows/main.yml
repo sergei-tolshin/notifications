@@ -1,0 +1,98 @@
+name: Python multiple versions
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      status: ${{ job.status }}
+      fail: ${{ steps.fail.outputs.fail }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.8", "3.9"]
+
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 wemake-python-styleguide flake8-html mypy[reports]
+          for filename in $(find . -name 'requirements.txt'); do
+          echo "Устанавливаются зависимости из файла $filename"
+          if [ -f $filename ]; then pip install -r $filename; fi
+          done
+
+      - name: Lint with flake8
+        id: flake
+        run: |
+          flake8 .
+
+      - name: Type check with mypy
+        id: mypy
+        run: mypy .
+
+      - name: Archive reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: reports-python-${{ matrix.python-version }}
+          path: |
+            flake_report/
+            mypy_report/
+      - name: Find failed step
+        id: fail
+        if: always()
+        run: |
+          if [ ${{ steps.flake.outcome != 'success' }} ]; then
+          echo "::set-output name=fail::Lint with flake8 failed"
+          elif [ ${{ steps.mypy.outcome != 'success' }} ]; then
+          echo "::set-output name=fail::Type check with mypy failed"
+          fi
+
+  send_message:
+    runs-on: ubuntu-latest
+    if: always()
+    needs: build
+    steps:
+      - name: Status OK
+        if: ${{ needs.build.outputs.status == 'success' }}
+        run: |
+            echo "RESULT=successfully" >> $GITHUB_ENV
+      - name: Status Error
+        if: ${{ needs.build.outputs.status != 'success' }}
+        run: |
+            echo "RESULT=with error" >> $GITHUB_ENV
+            echo 'STEP=Step "${{ needs.build.outputs.fail }}" failed.' >> $GITHUB_ENV
+
+      - name: Short SHA
+        id: sha7
+        run:
+          echo "::set-output name=sha7::$(echo ${{ github.event.pull_request.head.sha }} | cut -c1-7)"
+
+
+      - name: Send telegram message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TG_CHAT }}
+          token: ${{ secrets.TG_TOKEN }}
+          message: |
+            ${{ github.actor }} make ${{ github.event_name }} in
+            repo ${{ github.repository }}
+
+            Time: ${{ github.event.pull_request.created_at }}.
+
+            ${{ github.repository }}: Pipeline for ${{ steps.sha7.outputs.sha7 }} finished ${{ env.RESULT }}.
+
+            ${{ env.STEP }}
