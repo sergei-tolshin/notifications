@@ -56,9 +56,9 @@ jobs:
         if: always()
         run: |
           if [ ${{ steps.flake.outcome != 'success' }} ]; then
-          echo "::set-output name=fail::Lint with flake8 failed"
+          echo "::set-output name=fail::Lint with flake8"
           elif [ ${{ steps.mypy.outcome != 'success' }} ]; then
-          echo "::set-output name=fail::Type check with mypy failed"
+          echo "::set-output name=fail::Type check with mypy"
           fi
 
   send_message:
