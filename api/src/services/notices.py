@@ -5,12 +5,15 @@ from fastapi import Depends
 
 from .base import BaseService
 
-# from .mixins import CreateModelMixin, DestroyModelMixin, ListModelMixin
-
 
 class NoticesService(BaseService):
-    async def send_notice(self, name) -> None:
-        return self.producer.send_task('tasks.test', kwargs={'name': name})
+    async def send_notice(self, event) -> None:
+        task = '{app}.{type}'.format(app=event.app, type=event.type)
+        data = {
+            'notice_method': event.notice_method,
+            'payload': event.payload
+        }
+        return self.producer.send_task(task, kwargs=data)
 
 
 @lru_cache()

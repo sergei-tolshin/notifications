@@ -14,5 +14,7 @@ ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.s
 
 RUN chmod +x wait-for-it.sh
 
-CMD ["gunicorn", "main:app", "--workers", "4", "--worker-class", "uvicorn.workers.UvicornWorker", \
+CMD ["gunicorn", "main:app", \
+     "--workers", "4", "--worker-class", \
+     "uvicorn.workers.UvicornWorker", \
      "--bind", "0.0.0.0:8000"]

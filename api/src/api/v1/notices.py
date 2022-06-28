@@ -1,48 +1,35 @@
-from core.utils.translation import gettext_lazy as _
-from fastapi import APIRouter, Depends, HTTPException, Request, status
-# from models.favorites import Favorite
-from services.notices import NoticesService, get_notices_service
 from celery.result import AsyncResult
+from fastapi import APIRouter, Depends, status
+from models.event import Event
+from services.notices import NoticesService, get_notices_service
+
 router = APIRouter()
 
 
-# @router.get('/favorites/',
-#             summary='Список избранных фильмов',
-#             description='Просмотр списка избранных фильмов',
-#             status_code=status.HTTP_200_OK)
-# async def list_favorites(
-#     request: Request,
-#     service: NoticesService = Depends(get_notices_service)
-# ):
-#     fields = {
-#         '_id': False,
-#         'movie_id': True
-#     }
-#     favorites = await service.list({'user_id': request.user.identity}, fields)
-#     return [_['movie_id'] for _ in favorites]
-
-@router.get('/tasks/{task_id}')
+@router.get('/{notice_id}',
+            summary='Статус отправки уведомления',
+            description='Получить статус отправки уведомления',
+            )
 async def get_status(
-    task_id,
+    notice_id,
     service: NoticesService = Depends(get_notices_service)
 ):
-    task_result = AsyncResult(task_id, app=service.producer)
+    notice_result = AsyncResult(notice_id, app=service.producer)
     result = {
-        'task_id': task_id,
-        'task_status': task_result.status,
-        'task_result': task_result.result
+        'notice_id': notice_id,
+        'notice_status': notice_result.status,
+        'notice_result': notice_result.result
     }
     return result
 
 
-@router.post('/',
-             summary='Тестовое уведомление',
-             description='Отправить тестовое уведомление',
+@router.post('/send',
+             summary='Создание уведомления',
+             description='Создать уведомление по принятому событию',
              status_code=status.HTTP_201_CREATED)
 async def send_test(
-    name: str,
-    request: Request,
+    event: Event,
     service: NoticesService = Depends(get_notices_service)
 ):
-    task = await service.send_notice(name)
-    return {'task_id': task.id}
+    notice = await service.send_notice(event)
+    return {'notice_id': notice.id}

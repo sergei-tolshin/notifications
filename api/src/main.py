@@ -8,7 +8,6 @@ from fastapi.responses import ORJSONResponse
 from api.v1 import notices
 from core import config
 from core import logger as logger_config
-# from core.middleware import AuthMiddleware, LoggingMiddleware
 from db import message_broker
 
 logger = logging.getLogger(__name__)
@@ -22,8 +21,6 @@ app = FastAPI(
     redoc_url='/api/redoc',
     default_response_class=ORJSONResponse,
 )
-
-# app.add_middleware(LoggingMiddleware, logger=logger)
 
 
 @app.on_event('startup')
