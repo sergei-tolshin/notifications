@@ -26,65 +26,18 @@ services:
     env_file:
       - ./.env
 
-  base:
+  notice-api:
+    container_name: notice-api
     build:
       context: .
-      dockerfile: docker/base/Dockerfile
-    command: ["sleep", "inf"]
-
-  admin:
+      dockerfile: docker/api/Dockerfile
+    image: notice-api:latest
+    pull_policy: never
+    restart: always
+    expose:
+      - 8000
     depends_on:
       - db
       - amqp
-    build:
-      context: .
-      dockerfile: docker/admin/Dockerfile
-    ports:
-      - "${DJANGO_HOST:-127.0.0.1}:${DJANGO_PORT:-58000}:8000"
-    entrypoint: ["/app/docker/admin/entrypoint.sh"]
-    command: ["python3", "manage.py", "runserver", "0.0.0.0:${DJANGO_PORT:-8000}"]
-    tty: true
-    volumes:
-      - './admin/:/app/admin/'
-    env_file:
-    - ./.env
-  
-  worker:
-    container_name: worker
-    build: ./worker
-    command: celery --app=main.app worker -l INFO
-    volumes:
-      - ./worker:/usr/src/app
-    depends_on:
-      - db
-      - amqp
-    env_file:
-      - ./.env
-
-  scheduler:
-    depends_on:
-      - db
-      - amqp
-    build:
-      context: .
-      dockerfile: docker/scheduler/Dockerfile
-    entrypoint: ["/app/docker/scheduler/entrypoint.sh"]
-    command: celery -A scheduler.app beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
-    tty: true
-    volumes:
-      - './admin/:/app/admin/'
-    env_file:
-      - ./.env
-
-  dashboard:
-    container_name: dashboard
-    build: ./worker
-    command: celery -A main.app --broker=amqp://guest:guest@rabbitmq:5672// flower
-    ports:
-      - 5556:5555
-    depends_on:
-      - db
-      - amqp
-      - worker
     env_file:
       - ./.env
