@@ -1,0 +1,43 @@
+version: '3.8'
+
+
+services:
+  db:
+    container_name: postgres
+    image: postgres:14.3-bullseye
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - ./volumes/postgres/data/:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+
+  amqp:
+    container_name: rabbitmq
+    image: rabbitmq:3.10.5-management
+    restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ./volumes/rabbitmq/data/:/var/lib/rabbitmq/
+      - ./volumes/rabbitmq/log/:/var/log/rabbitmq
+    env_file:
+      - ./.env
+
+  notice-api:
+    container_name: notice-api
+    build:
+      context: .
+      dockerfile: docker/api/Dockerfile
+    image: notice-api:latest
+    pull_policy: never
+    restart: always
+    expose:
+      - 8000
+    depends_on:
+      - db
+      - amqp
+    env_file:
+      - ./.env
