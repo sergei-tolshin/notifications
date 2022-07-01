@@ -1,0 +1,140 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-01 22:31+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+#: .\notices\admin.py:40
+msgid "task name"
+msgstr ""
+
+#: .\notices\admin.py:51 .\notices\models.py:66 .\notices\models.py:77
+msgid "event"
+msgstr "Событие"
+
+#: .\notices\admin.py:55
+msgid "method"
+msgstr "Метод"
+
+#: .\notices\apps.py:8 .\notices\models.py:94
+msgid "notices"
+msgstr "Уведомления"
+
+#: .\notices\models.py:11
+msgid "E-mail"
+msgstr ""
+
+#: .\notices\models.py:12
+msgid "SMS"
+msgstr ""
+
+#: .\notices\models.py:13
+msgid "Telegram"
+msgstr ""
+
+#: .\notices\models.py:14
+msgid "Websocket"
+msgstr ""
+
+#: .\notices\models.py:25
+msgid "created"
+msgstr "создан"
+
+#: .\notices\models.py:26
+msgid "modified"
+msgstr "изменен"
+
+#: .\notices\models.py:41 .\notices\models.py:57
+msgid "title"
+msgstr "Название"
+
+#: .\notices\models.py:42 .\notices\models.py:60 .\notices\models.py:104
+msgid "name"
+msgstr "Имя"
+
+#: .\notices\models.py:43 .\notices\models.py:61
+msgid "description"
+msgstr "Описание"
+
+#: .\notices\models.py:47 .\notices\models.py:59
+msgid "app"
+msgstr "Приложение"
+
+#: .\notices\models.py:48
+msgid "apps"
+msgstr "Приложения"
+
+#: .\notices\models.py:67
+msgid "events"
+msgstr "События"
+
+#: .\notices\models.py:80
+msgid "delivery method"
+msgstr "Метод отправки"
+
+#: .\notices\models.py:86
+msgid "controlled by user"
+msgstr "Управляется пользователем"
+
+#: .\notices\models.py:93 .\notices\models.py:107 .\notices\models.py:136
+msgid "notice"
+msgstr "Уведомление"
+
+#: .\notices\models.py:111
+msgid "message body"
+msgstr "Сообщение"
+
+#: .\notices\models.py:114
+msgid ""
+"Allowed variables:<br>{{ name }} - user name<br>{{ login }} - user "
+"login<br>{{ email }} - user email<br>{{ code }} - activation "
+"code<br>{{ link }} - URL link"
+msgstr ""
+"Допустимые переменные:<br>{{ name }} - Имя пользователя<br>{{ login }} - логин "
+"пользователя<br>{{ email }} - e-mail пользователя<br>{{ code }} - код активации "
+"<br>{{ link }} - ccылка"
+
+#: .\notices\models.py:125
+msgid "template"
+msgstr "Шаблон"
+
+#: .\notices\models.py:126
+msgid "templates"
+msgstr "Шаблоны"
+
+#: .\notices\models.py:134
+msgid "user id"
+msgstr "ID пользователя"
+
+#: .\notices\models.py:143
+msgid "user notice"
+msgstr "Уведомление пользователя"
+
+#: .\notices\models.py:144
+msgid "user notices"
+msgstr "Уведомления пользователя"
+
+#: .\notices\validators.py:15
+#, python-format
+msgid "Variable '%(var)s' is forbidden"
+msgstr ""
+
+#: .\notices\validators.py:20
+#, python-format
+msgid "Syntax error: %(error)s"
+msgstr ""
