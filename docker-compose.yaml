@@ -41,3 +41,26 @@ services:
       - amqp
     env_file:
       - ./.env
+
+  base:
+    build:
+      context: .
+      dockerfile: docker/base/Dockerfile
+    command: ["sleep", "inf"]
+
+  admin:
+    depends_on:
+      - db
+      - amqp
+    build:
+      context: .
+      dockerfile: docker/admin/Dockerfile
+    ports:
+      - "${DJANGO_HOST:-127.0.0.1}:${DJANGO_PORT:-58000}:8000"
+    entrypoint: ["/app/docker/admin/entrypoint.sh"]
+    command: ["python3", "manage.py", "runserver", "0.0.0.0:${DJANGO_PORT:-8000}"]
+    tty: true
+    volumes:
+      - './admin/:/app/admin/'
+    env_file:
+    - ./.env
