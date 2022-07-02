@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
-from .models import App, Event, Notice, Template, UserNotice
+from .models import App, Event, Newsletter, Notice, Template, UserNotice
 
 
 class EventInline(admin.TabularInline):
@@ -32,7 +32,7 @@ class EventAdmin(admin.ModelAdmin):
 
 @admin.register(Template)
 class TemplateAdmin(admin.ModelAdmin):
-    list_display = ('name', 'task_name', 'created', 'modified',)
+    list_display = ('name', 'task_name', 'by_default', 'created', 'modified',)
     list_filter = ('notice__method', 'notice__event__app',
                    'notice__event__title',)
     search_fields = ('name',)
@@ -41,6 +41,14 @@ class TemplateAdmin(admin.ModelAdmin):
     def task_name(self, obj):
         return '{event}.{method}'.format(event=obj.notice.event,
                                          method=obj.notice.method)
+
+
+@admin.register(Newsletter)
+class NewsletterAdmin(admin.ModelAdmin):
+    list_display = ('title', 'clocked_time', 'created', 'enabled')
+    list_filter = ('clocked_time',)
+    search_fields = ('title',)
+    exclude = ('task',)
 
 
 @admin.register(UserNotice)

@@ -1,7 +1,9 @@
 import uuid
 
-from django.db import models
+from django.db import models, transaction
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django_celery_beat.models import PeriodicTask
 
 from .validators import validate_syntax
 
@@ -98,14 +100,18 @@ class Notice(BaseModel):
                                            method=self.get_method_display())
 
 
-class Template(TimeStampedFieldMixin, models.Model):
+class Template(BaseModel):
     # Шаблоны уведомлений
     # Доступно для менеджеров
     name = models.CharField(_('name'), max_length=200)
-    notice = models.OneToOneField(
+    notice = models.ForeignKey(
         Notice, on_delete=models.CASCADE,
         verbose_name=_('notice'),
-        primary_key=True,
+        related_name='templates',
+    )
+    by_default = models.BooleanField(
+        verbose_name=_('by default for this notification'),
+        default=False,
     )
     body = models.TextField(
         _('message body'), blank=True,
@@ -127,6 +133,76 @@ class Template(TimeStampedFieldMixin, models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        template = Template.objects.filter(notice=self.notice, by_default=True)
+        if not self.by_default:
+            if not template.exists():
+                self.by_default = True
+            return super().save(*args, **kwargs)
+        with transaction.atomic():
+            template.update(by_default=False)
+            return super().save(*args, **kwargs)
+
+
+class Newsletter(BaseModel):
+    # Рассылки
+    # Доступно для менеджеров
+    title = models.CharField(_('title'), max_length=100,)
+    subject = models.CharField(_('subject'), max_length=100,)
+    template = models.ForeignKey(
+        Template, on_delete=models.CASCADE,
+        verbose_name=_('template'),
+        related_name='newsletters',
+        limit_choices_to={'notice__event__app__name': 'promo'}
+    )
+    clocked_time = models.DateTimeField(
+        verbose_name=_('clock time'),
+        default=timezone.now,
+        help_text=_('run the newsletter at the set time'),
+    )
+
+    def example_filter():
+        return {
+            "emails": ["user1@fake.ru", "userN@fake.ru"],
+            "groups": ["paid subscription"],
+            "age": ["gte=18", "lt=35"],
+            "cities": ["Moscow", "Ekaterinburg"]
+        }
+    recipients = models.JSONField(
+        verbose_name=_('recipients'),
+        default=example_filter,
+        help_text=_(
+            'Example of a recipient filter:<br>'
+            '{<br>'
+            '&emsp;"emails": ["user1@fake.ru", ..., "userN@fake.ru"],<br>'
+            '&emsp;"groups": ["paid subscription"],<br>'
+            '&emsp;"age": ["gte=18", "lt=35"],<br>'
+            '&emsp;"cities": ["Moscow", "Ekaterinburg"]<br>'
+            '}'
+        )
+    )
+    task = models.OneToOneField(
+        PeriodicTask,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+    enabled = models.BooleanField(default=True, verbose_name=_('enabled'),)
+
+    class Meta:
+        db_table = "notice\".\"newsletter"
+        verbose_name = _('newsletter')
+        verbose_name_plural = _('newsletters')
+
+    def __str__(self):
+        return self.title
+
+    def delete(self, *args, **kwargs):
+        if self.task is not None:
+            self.task.delete()
+
+        return super().delete(*args, **kwargs)
 
 
 class UserNotice(BaseModel):
