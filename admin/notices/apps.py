@@ -6,3 +6,6 @@ class NoticesConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'notices'
     verbose_name = _('notices')
+
+    def ready(self):
+        from notices import signals

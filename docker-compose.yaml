@@ -26,29 +26,43 @@ services:
     env_file:
       - ./.env
 
-  notice-api:
-    container_name: notice-api
+  api:
+    container_name: api
     build:
       context: .
       dockerfile: docker/api/Dockerfile
-    image: notice-api:latest
+    image: api:latest
     pull_policy: never
     restart: always
     expose:
-      - 8000
+      - 8800
     depends_on:
       - db
       - amqp
     env_file:
       - ./.env
 
+  nginx:
+    container_name: nginx
+    image: nginx:stable
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/nginx/site.conf:/etc/nginx/conf.d/site.conf:ro
+    depends_on:
+      - api
+
   base:
+    container_name: base
     build:
       context: .
       dockerfile: docker/base/Dockerfile
     command: ["sleep", "inf"]
 
   admin:
+    container_name: admin
     depends_on:
       - db
       - amqp
@@ -64,3 +78,19 @@ services:
       - './admin/:/app/admin/'
     env_file:
     - ./.env
+
+  scheduler:
+    container_name: scheduler
+    depends_on:
+      - db
+      - amqp
+    build:
+      context: .
+      dockerfile: docker/scheduler/Dockerfile
+    entrypoint: ["/app/docker/scheduler/entrypoint.sh"]
+    command: celery -A scheduler.app beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    tty: true
+    volumes:
+      - './admin/:/app/admin/'
+    env_file:
+      - ./.env

@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-01 22:31+0500\n"
+"POT-Creation-Date: 2022-07-02 12:26+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,110 +17,151 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 #: .\notices\admin.py:40
 msgid "task name"
 msgstr ""
 
-#: .\notices\admin.py:51 .\notices\models.py:66 .\notices\models.py:77
+#: .\notices\admin.py:59 .\notices\models.py:71 .\notices\models.py:82
 msgid "event"
 msgstr ""
 
-#: .\notices\admin.py:55
+#: .\notices\admin.py:63
 msgid "method"
 msgstr ""
 
-#: .\notices\apps.py:8 .\notices\models.py:94
+#: .\notices\apps.py:8 .\notices\models.py:99
 msgid "notices"
 msgstr ""
 
-#: .\notices\models.py:11
+#: .\notices\models.py:16
 msgid "E-mail"
 msgstr ""
 
-#: .\notices\models.py:12
+#: .\notices\models.py:17
 msgid "SMS"
 msgstr ""
 
-#: .\notices\models.py:13
+#: .\notices\models.py:18
 msgid "Telegram"
 msgstr ""
 
-#: .\notices\models.py:14
+#: .\notices\models.py:19
 msgid "Websocket"
 msgstr ""
 
-#: .\notices\models.py:25
+#: .\notices\models.py:30
 msgid "created"
 msgstr ""
 
-#: .\notices\models.py:26
+#: .\notices\models.py:31
 msgid "modified"
 msgstr ""
 
-#: .\notices\models.py:41 .\notices\models.py:57
+#: .\notices\models.py:46 .\notices\models.py:62 .\notices\models.py:152
 msgid "title"
 msgstr ""
 
-#: .\notices\models.py:42 .\notices\models.py:60 .\notices\models.py:104
+#: .\notices\models.py:47 .\notices\models.py:65 .\notices\models.py:109
 msgid "name"
 msgstr ""
 
-#: .\notices\models.py:43 .\notices\models.py:61
+#: .\notices\models.py:48 .\notices\models.py:66
 msgid "description"
 msgstr ""
 
-#: .\notices\models.py:47 .\notices\models.py:59
+#: .\notices\models.py:52 .\notices\models.py:64
 msgid "app"
 msgstr ""
 
-#: .\notices\models.py:48
+#: .\notices\models.py:53
 msgid "apps"
 msgstr ""
 
-#: .\notices\models.py:67
+#: .\notices\models.py:72
 msgid "events"
 msgstr ""
 
-#: .\notices\models.py:80
+#: .\notices\models.py:85
 msgid "delivery method"
 msgstr ""
 
-#: .\notices\models.py:86
+#: .\notices\models.py:91
 msgid "controlled by user"
 msgstr ""
 
-#: .\notices\models.py:93 .\notices\models.py:107 .\notices\models.py:136
+#: .\notices\models.py:98 .\notices\models.py:112 .\notices\models.py:230
 msgid "notice"
 msgstr ""
 
-#: .\notices\models.py:111
+#: .\notices\models.py:116
+msgid "by default for this notification"
+msgstr ""
+
+#: .\notices\models.py:120
 msgid "message body"
 msgstr ""
 
-#: .\notices\models.py:114
+#: .\notices\models.py:123
 msgid ""
 "Allowed variables:<br>{{ name }} - user name<br>{{ login }} - user "
 "login<br>{{ email }} - user email<br>{{ code }} - activation "
 "code<br>{{ link }} - URL link"
 msgstr ""
 
-#: .\notices\models.py:125
+#: .\notices\models.py:134 .\notices\models.py:156
 msgid "template"
 msgstr ""
 
-#: .\notices\models.py:126
+#: .\notices\models.py:135
 msgid "templates"
 msgstr ""
 
-#: .\notices\models.py:134
+#: .\notices\models.py:153
+msgid "subject"
+msgstr ""
+
+#: .\notices\models.py:161
+msgid "clock time"
+msgstr ""
+
+#: .\notices\models.py:163
+msgid "run the newsletter at the set time"
+msgstr ""
+
+#: .\notices\models.py:174
+msgid "recipients"
+msgstr ""
+
+#: .\notices\models.py:177
+msgid ""
+"Example of a recipient filter:<br>{<br>&emsp;\"emails\": [\"user1@fake.ru"
+"\", ..., \"userN@fake.ru\"],<br>&emsp;\"groups\": [\"paid subscription\"],"
+"<br>&emsp;\"age\": [\"gte=18\", \"lt=35\"],<br>&emsp;\"cities\": [\"Moscow"
+"\", \"Ekaterinburg\"]<br>}"
+msgstr ""
+
+#: .\notices\models.py:192
+msgid "enabled"
+msgstr ""
+
+#: .\notices\models.py:196
+msgid "newsletter"
+msgstr ""
+
+#: .\notices\models.py:197
+msgid "newsletters"
+msgstr ""
+
+#: .\notices\models.py:228
 msgid "user id"
 msgstr ""
 
-#: .\notices\models.py:143
+#: .\notices\models.py:237
 msgid "user notice"
 msgstr ""
 
-#: .\notices\models.py:144
+#: .\notices\models.py:238
 msgid "user notices"
 msgstr ""
 
