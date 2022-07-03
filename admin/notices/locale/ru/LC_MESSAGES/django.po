@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-02 12:26+0500\n"
+"POT-Creation-Date: 2022-07-03 08:10+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,91 +20,91 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: .\notices\admin.py:40
+#: .\notices\admin.py:41
 msgid "task name"
 msgstr "имя задачи"
 
-#: .\notices\admin.py:59 .\notices\models.py:71 .\notices\models.py:82
+#: .\notices\admin.py:60 .\notices\models.py:69 .\notices\models.py:80
 msgid "event"
 msgstr "Событие"
 
-#: .\notices\admin.py:63
+#: .\notices\admin.py:64
 msgid "method"
 msgstr "Метод"
 
-#: .\notices\apps.py:8 .\notices\models.py:99
+#: .\notices\apps.py:8 .\notices\models.py:97
 msgid "notices"
 msgstr "Уведомления"
 
-#: .\notices\models.py:16
+#: .\notices\models.py:14
 msgid "E-mail"
 msgstr ""
 
-#: .\notices\models.py:17
+#: .\notices\models.py:15
 msgid "SMS"
 msgstr ""
 
-#: .\notices\models.py:18
+#: .\notices\models.py:16
 msgid "Telegram"
 msgstr ""
 
-#: .\notices\models.py:19
+#: .\notices\models.py:17
 msgid "Websocket"
 msgstr ""
 
-#: .\notices\models.py:30
+#: .\notices\models.py:28
 msgid "created"
 msgstr "создан"
 
-#: .\notices\models.py:31
+#: .\notices\models.py:29
 msgid "modified"
 msgstr "изменен"
 
-#: .\notices\models.py:46 .\notices\models.py:62 .\notices\models.py:152
+#: .\notices\models.py:44 .\notices\models.py:60 .\notices\models.py:152
 msgid "title"
 msgstr "Название"
 
-#: .\notices\models.py:47 .\notices\models.py:65 .\notices\models.py:109
+#: .\notices\models.py:45 .\notices\models.py:63 .\notices\models.py:107
 msgid "name"
 msgstr "Имя"
 
-#: .\notices\models.py:48 .\notices\models.py:66
+#: .\notices\models.py:46 .\notices\models.py:64
 msgid "description"
 msgstr "Описание"
 
-#: .\notices\models.py:52 .\notices\models.py:64
+#: .\notices\models.py:50 .\notices\models.py:62
 msgid "app"
 msgstr "Приложение"
 
-#: .\notices\models.py:53
+#: .\notices\models.py:51
 msgid "apps"
 msgstr "Приложения"
 
-#: .\notices\models.py:72
+#: .\notices\models.py:70
 msgid "events"
 msgstr "События"
 
-#: .\notices\models.py:85
+#: .\notices\models.py:83
 msgid "delivery method"
 msgstr "Метод отправки"
 
-#: .\notices\models.py:91
+#: .\notices\models.py:89
 msgid "controlled by user"
 msgstr "Управляется пользователем"
 
-#: .\notices\models.py:98 .\notices\models.py:112 .\notices\models.py:230
+#: .\notices\models.py:96 .\notices\models.py:110 .\notices\models.py:213
 msgid "notice"
 msgstr "Уведомление"
 
-#: .\notices\models.py:116
+#: .\notices\models.py:114
 msgid "by default for this notification"
 msgstr "по умолчанию для этого уведомления"
 
-#: .\notices\models.py:120
+#: .\notices\models.py:118
 msgid "message body"
 msgstr "Сообщение"
 
-#: .\notices\models.py:123
+#: .\notices\models.py:121
 msgid ""
 "Allowed variables:<br>{{ name }} - user name<br>{{ login }} - user "
 "login<br>{{ email }} - user email<br>{{ code }} - activation "
@@ -114,11 +114,11 @@ msgstr ""
 "логин пользователя<br>{{ email }} - e-mail пользователя<br>{{ code }} - код "
 "активации <br>{{ link }} - ccылка"
 
-#: .\notices\models.py:134 .\notices\models.py:156
+#: .\notices\models.py:132 .\notices\models.py:156
 msgid "template"
 msgstr "Шаблон"
 
-#: .\notices\models.py:135
+#: .\notices\models.py:133
 msgid "templates"
 msgstr "Шаблоны"
 
@@ -162,17 +162,33 @@ msgstr "Рассылка"
 msgid "newsletters"
 msgstr "Рассылки"
 
-#: .\notices\models.py:228
+#: .\notices\models.py:211 .\notices\models.py:230
 msgid "user id"
 msgstr "ID пользователя"
 
-#: .\notices\models.py:237
+#: .\notices\models.py:220
 msgid "user notice"
 msgstr "Уведомление пользователя"
 
-#: .\notices\models.py:238
+#: .\notices\models.py:221
 msgid "user notices"
 msgstr "Уведомления пользователя"
+
+#: .\notices\models.py:231
+msgid "timezone"
+msgstr "Часовой пояс"
+
+#: .\notices\models.py:234
+msgid "time from"
+msgstr "Время с"
+
+#: .\notices\models.py:236
+msgid "time to"
+msgstr "Время по"
+
+#: .\notices\models.py:240 .\notices\models.py:241
+msgid "user time"
+msgstr "Время пользователя"
 
 #: .\notices\validators.py:15
 #, python-format

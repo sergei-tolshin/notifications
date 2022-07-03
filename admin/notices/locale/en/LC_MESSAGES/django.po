@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-02 12:26+0500\n"
+"POT-Creation-Date: 2022-07-03 08:10+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,102 +18,102 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\notices\admin.py:40
+#: .\notices\admin.py:41
 msgid "task name"
 msgstr ""
 
-#: .\notices\admin.py:59 .\notices\models.py:71 .\notices\models.py:82
+#: .\notices\admin.py:60 .\notices\models.py:69 .\notices\models.py:80
 msgid "event"
 msgstr ""
 
-#: .\notices\admin.py:63
+#: .\notices\admin.py:64
 msgid "method"
 msgstr ""
 
-#: .\notices\apps.py:8 .\notices\models.py:99
+#: .\notices\apps.py:8 .\notices\models.py:97
 msgid "notices"
 msgstr ""
 
-#: .\notices\models.py:16
+#: .\notices\models.py:14
 msgid "E-mail"
 msgstr ""
 
-#: .\notices\models.py:17
+#: .\notices\models.py:15
 msgid "SMS"
 msgstr ""
 
-#: .\notices\models.py:18
+#: .\notices\models.py:16
 msgid "Telegram"
 msgstr ""
 
-#: .\notices\models.py:19
+#: .\notices\models.py:17
 msgid "Websocket"
 msgstr ""
 
-#: .\notices\models.py:30
+#: .\notices\models.py:28
 msgid "created"
 msgstr ""
 
-#: .\notices\models.py:31
+#: .\notices\models.py:29
 msgid "modified"
 msgstr ""
 
-#: .\notices\models.py:46 .\notices\models.py:62 .\notices\models.py:152
+#: .\notices\models.py:44 .\notices\models.py:60 .\notices\models.py:152
 msgid "title"
 msgstr ""
 
-#: .\notices\models.py:47 .\notices\models.py:65 .\notices\models.py:109
+#: .\notices\models.py:45 .\notices\models.py:63 .\notices\models.py:107
 msgid "name"
 msgstr ""
 
-#: .\notices\models.py:48 .\notices\models.py:66
+#: .\notices\models.py:46 .\notices\models.py:64
 msgid "description"
 msgstr ""
 
-#: .\notices\models.py:52 .\notices\models.py:64
+#: .\notices\models.py:50 .\notices\models.py:62
 msgid "app"
 msgstr ""
 
-#: .\notices\models.py:53
+#: .\notices\models.py:51
 msgid "apps"
 msgstr ""
 
-#: .\notices\models.py:72
+#: .\notices\models.py:70
 msgid "events"
 msgstr ""
 
-#: .\notices\models.py:85
+#: .\notices\models.py:83
 msgid "delivery method"
 msgstr ""
 
-#: .\notices\models.py:91
+#: .\notices\models.py:89
 msgid "controlled by user"
 msgstr ""
 
-#: .\notices\models.py:98 .\notices\models.py:112 .\notices\models.py:230
+#: .\notices\models.py:96 .\notices\models.py:110 .\notices\models.py:213
 msgid "notice"
 msgstr ""
 
-#: .\notices\models.py:116
+#: .\notices\models.py:114
 msgid "by default for this notification"
 msgstr ""
 
-#: .\notices\models.py:120
+#: .\notices\models.py:118
 msgid "message body"
 msgstr ""
 
-#: .\notices\models.py:123
+#: .\notices\models.py:121
 msgid ""
 "Allowed variables:<br>{{ name }} - user name<br>{{ login }} - user "
 "login<br>{{ email }} - user email<br>{{ code }} - activation "
 "code<br>{{ link }} - URL link"
 msgstr ""
 
-#: .\notices\models.py:134 .\notices\models.py:156
+#: .\notices\models.py:132 .\notices\models.py:156
 msgid "template"
 msgstr ""
 
-#: .\notices\models.py:135
+#: .\notices\models.py:133
 msgid "templates"
 msgstr ""
 
@@ -153,16 +153,32 @@ msgstr ""
 msgid "newsletters"
 msgstr ""
 
-#: .\notices\models.py:228
+#: .\notices\models.py:211 .\notices\models.py:230
 msgid "user id"
 msgstr ""
 
-#: .\notices\models.py:237
+#: .\notices\models.py:220
 msgid "user notice"
 msgstr ""
 
-#: .\notices\models.py:238
+#: .\notices\models.py:221
 msgid "user notices"
+msgstr ""
+
+#: .\notices\models.py:231
+msgid "timezone"
+msgstr ""
+
+#: .\notices\models.py:234
+msgid "time from"
+msgstr ""
+
+#: .\notices\models.py:236
+msgid "time to"
+msgstr ""
+
+#: .\notices\models.py:240 .\notices\models.py:241
+msgid "user time"
 msgstr ""
 
 #: .\notices\validators.py:15

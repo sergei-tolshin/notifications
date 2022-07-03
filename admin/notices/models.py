@@ -4,7 +4,8 @@ from django.db import models, transaction
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django_celery_beat.models import PeriodicTask
-
+import pytz
+import datetime as dt
 from .validators import validate_syntax
 
 
@@ -164,8 +165,7 @@ class Newsletter(BaseModel):
 
     def example_filter():
         return {
-            "emails": ["user1@fake.ru", "userN@fake.ru"],
-            "groups": ["paid subscription"],
+            "groups": ["subscription"],
             "age": ["gte=18", "lt=35"],
             "cities": ["Moscow", "Ekaterinburg"]
         }
@@ -175,8 +175,7 @@ class Newsletter(BaseModel):
         help_text=_(
             'Example of a recipient filter:<br>'
             '{<br>'
-            '&emsp;"emails": ["user1@fake.ru", ..., "userN@fake.ru"],<br>'
-            '&emsp;"groups": ["paid subscription"],<br>'
+            '&emsp;"groups": ["subscription"],<br>'
             '&emsp;"age": ["gte=18", "lt=35"],<br>'
             '&emsp;"cities": ["Moscow", "Ekaterinburg"]<br>'
             '}'
@@ -218,3 +217,23 @@ class UserNotice(BaseModel):
         unique_together = ('user_id', 'notice')
         verbose_name = _('user notice')
         verbose_name_plural = _('user notices')
+
+
+class UserTime(models.Model):
+    # Часовой пояс и время получения уведомлений
+    TIMEZONES = tuple(zip(pytz.all_timezones, pytz.all_timezones))
+    HOUR_CHOICES = [
+        (dt.time(hour=x), '{:02d}:00'.format(x)) for x in range(0, 24)]
+
+    user_id = models.UUIDField(_('user id'), primary_key=True)
+    timezone = models.CharField(_('timezone'), max_length=32,
+                                choices=TIMEZONES, default='UTC')
+    time_from = models.TimeField(
+        _('time from'), choices=HOUR_CHOICES, default=dt.time(00, 00))
+    time_to = models.TimeField(
+        _('time to'), choices=HOUR_CHOICES, default=dt.time(00, 00))
+
+    class Meta:
+        db_table = "notice\".\"user_time"
+        verbose_name = _('user time')
+        verbose_name_plural = _('user time')

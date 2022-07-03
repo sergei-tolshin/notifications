@@ -8,7 +8,7 @@ from .base import BaseService
 
 class NoticesService(BaseService):
     async def send_notice(self, event) -> None:
-        task = '{app}.{type}'.format(app=event.app, type=event.type)
+        task = '{app}.{event}'.format(app=event.app, event=event.event)
         data = {
             'notice_method': event.notice_method,
             'payload': event.payload
