@@ -1,18 +1,19 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
-from .models import App, Event, Newsletter, Notice, Template, UserNotice
+from .models import (App, Event, Newsletter, Notice, Template, UserNotice,
+                     UserTime)
 
 
 class EventInline(admin.TabularInline):
     model = Event
-    extra = 0
+    extra = 1
     fields = ('title', 'name',)
 
 
 class NoticeInline(admin.TabularInline):
     model = Notice
-    extra = 0
+    extra = 1
 
 
 @admin.register(App)
@@ -63,3 +64,9 @@ class UserNoticeAdmin(admin.ModelAdmin):
     @admin.display(description=_('method'))
     def method(self, obj):
         return obj.notice.get_method_display()
+
+
+@admin.register(UserTime)
+class UserTimeAdmin(admin.ModelAdmin):
+    list_display = ('user_id', 'timezone', 'time_from', 'time_to')
+    list_filter = ('timezone',)

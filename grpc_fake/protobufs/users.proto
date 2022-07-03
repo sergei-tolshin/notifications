@@ -1,0 +1,33 @@
+syntax = "proto3";
+package users;
+
+service Users {
+  rpc GetUsers(GetUsersRequest) returns (GetUsersResult) {};
+  rpc GetEmailConfirm(GetEmailConfirmRequest) returns (GetEmailConfirmResult) {};
+}
+
+message User {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+}
+
+message GetUsersRequest {
+  repeated string groups = 1;
+  repeated string age = 2;
+  repeated string cities = 3;
+}
+
+message GetUsersResult {
+  repeated User users = 1;
+}
+
+message GetEmailConfirmRequest {
+  string id = 1;
+}
+
+message GetEmailConfirmResult {
+  string name = 1;
+  string email = 2;
+  string link = 3;
+}

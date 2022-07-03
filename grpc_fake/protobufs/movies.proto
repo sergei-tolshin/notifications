@@ -1,0 +1,32 @@
+syntax = "proto3";
+package movies;
+
+service Movies {
+  rpc GetMovies(GetMoviesRequest) returns (GetMoviesResult) {};
+}
+
+message Genre {
+  string name = 1;
+}
+
+message Person {
+  string full_name = 1;
+  string role = 2;
+}
+
+message Movie {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  string rating = 4;
+  repeated string genres = 5;
+  repeated Person persons = 6;
+}
+
+message GetMoviesRequest {
+  repeated Movie movies = 1;
+}
+
+message GetMoviesResult {
+  Movie movies = 1;
+}

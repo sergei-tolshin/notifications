@@ -75,7 +75,7 @@ services:
     command: ["python3", "manage.py", "runserver", "0.0.0.0:${DJANGO_PORT:-8000}"]
     tty: true
     volumes:
-      - './admin/:/app/admin/'
+      - ./admin/:/app/admin/
     env_file:
     - ./.env
 
@@ -91,6 +91,45 @@ services:
     command: celery -A scheduler.app beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
     tty: true
     volumes:
-      - './admin/:/app/admin/'
+      - ./admin/:/app/admin/
     env_file:
       - ./.env
+
+  worker:
+    container_name: worker
+    build:
+      context: .
+      dockerfile: docker/worker/Dockerfile
+    entrypoint: ["/app/docker/worker/entrypoint.sh"]
+    command: celery -A worker.main.app worker -l info
+    volumes:
+      - ./admin/:/app/admin/
+    depends_on:
+      - db
+      - amqp
+    env_file:
+      - ./.env
+
+  dashboard:
+    container_name: dashboard
+    build:
+      context: .
+      dockerfile: docker/dashboard/Dockerfile
+    command: celery -A main.app --broker=amqp://guest:guest@rabbitmq:5672// flower
+    ports:
+      - 5556:5555
+    depends_on:
+      - db
+      - amqp
+      - worker
+    env_file:
+      - ./.env
+
+  grpc:
+    container_name: grpc
+    build:
+      context: .
+      dockerfile: docker/grpc/Dockerfile
+    expose:
+      - 50051
+    env_file: ./.env
