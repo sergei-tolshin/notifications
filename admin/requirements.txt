@@ -10,6 +10,7 @@ flower==1.0.0
 SQLAlchemy==1.4.37
 celery==5.2.7
 django-celery-beat==2.3.0
+django-tinymce==3.4.0
 django-createsuperuserwithpassword==2.0.0
 grpcio-tools==1.47.0
 

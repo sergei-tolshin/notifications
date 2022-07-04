@@ -8,6 +8,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_createsuperuserwithpassword',
     'django_celery_beat',
+    'tinymce',
     'notices.apps.NoticesConfig',
 ]
 
