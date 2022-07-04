@@ -1,11 +1,13 @@
+import datetime as dt
 import uuid
 
+import pytz
 from django.db import models, transaction
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django_celery_beat.models import PeriodicTask
-import pytz
-import datetime as dt
+from tinymce import models as tinymce_models
+
 from .validators import validate_syntax
 
 
@@ -114,7 +116,7 @@ class Template(BaseModel):
         verbose_name=_('by default for this notification'),
         default=False,
     )
-    body = models.TextField(
+    body = tinymce_models.HTMLField(
         _('message body'), blank=True,
         validators=[validate_syntax],
         help_text=_(
